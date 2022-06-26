@@ -1,0 +1,23 @@
+<div class="game-container">
+  <div class="game-header">
+    <h3 class="logo">Yılan Oyunu</h3>
+    <div class="score-block">
+      <h3 class="score" [ngClass]="{'new-best-score': newBestScore}">Skor: {{score}}</h3>
+      <h3 class="best-score" [ngClass]="{'new-best-score': newBestScore}">Rekor: {{best_score}}</h3>
+    </div>
+  </div>
+  <div class="row" *ngFor="let column of board; let i = index;">
+    <div class="column" [ngStyle]="{'background-color': setColors(i, j)}" *ngFor="let row of column; let j = index"></div>
+  </div>
+  <div *ngIf="!gameStarted" class="start-button" (click)="showMenu()">Oyuna Başla</div>
+  <div *ngIf="gameStarted" class="start-button" (click)="gameOver()">Sıfırla</div>
+
+  <div class="new-game-menu" *ngIf="showMenuChecker">
+    <span class="new-game-menu-label">Oyun Modu Seçiniz</span>
+    <div class="start-button new-game-button" (click)="newGame(mode.id)" *ngFor="let mode of gameModesDataSource">
+      <span *ngIf="mode.id == allModes[allModes.Classic]">Klasik  <angular-emojis [name]="'smiley'" size="30"> </angular-emojis></span>
+      <span *ngIf="mode.id == allModes[allModes.NoWalls]">Bebek İşi  <angular-emojis [name]="'baby'" size="30"> </angular-emojis></span>
+      <span *ngIf="mode.id == allModes[allModes.Obstacles]">Engellere Karşı  <angular-emojis [name]="'sunglasses'" size="30"> </angular-emojis></span>
+    </div>
+  </div>
+</div>
